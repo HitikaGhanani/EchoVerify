@@ -42,3 +42,4 @@ EchoVerify/
    ```bash
    streamlit run ui/app.py
    ```
+
