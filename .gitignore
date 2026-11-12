@@ -1,0 +1,58 @@
+# Datasets & audio files (never upload to GitHub)
+data/*
+!data/.gitkeep
+*.wav
+*.flac
+*.mp3
+*.ogg
+*.m4a
+*.aac
+*.opus
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+
+# Model checkpoints, weights & cached features
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.h5
+*.npy
+*.npz
+checkpoints/
+weights/
+cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.Python
+build/
+dist/
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Slurm / cluster logs
+slurm-*.out
+slurm-*.err
+*.log
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local planning & deliverable files
+Project Deliverable 1.1.pdf
+REVISED_PLAN.md

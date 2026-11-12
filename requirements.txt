@@ -1,0 +1,20 @@
+# Core deep learning & audio representation
+torch
+torchaudio
+transformers
+
+# Audio processing & feature extraction
+librosa
+soundfile
+scipy
+
+# Data & evaluation
+numpy
+pandas
+scikit-learn
+pyyaml
+tqdm
+
+# Visualization & UI
+matplotlib
+streamlit
