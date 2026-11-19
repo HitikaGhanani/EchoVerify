@@ -1,0 +1,21 @@
+{
+  "preprocessing_config": {
+    "sample_rate": 16000,
+    "target_duration_sec": 4.0,
+    "mode": "raw",
+    "trim_top_db": 30.0,
+    "crop_mode": "first",
+    "pad_mode": "zero",
+    "n_mels": 64,
+    "n_fft": 512,
+    "hop_length": 160,
+    "target_samples": 64000
+  },
+  "features": [
+    "lead_silence_sec",
+    "trail_silence_sec"
+  ],
+  "operating_threshold": 0.43661412596702576,
+  "unreadable_train_count": 0,
+  "unreadable_dev_count": 0
+}

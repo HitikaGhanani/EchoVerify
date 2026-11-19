@@ -1,0 +1,17 @@
+speaker_id,utt_id,unused,attack_id,label_name,label,split,audio_path
+LA_0070,LA_D_3264952,-,-,bonafide,0,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_3264952.flac
+LA_0069,LA_D_4511951,-,-,bonafide,0,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_4511951.flac
+LA_0071,LA_D_4409009,-,A01,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_4409009.flac
+LA_0078,LA_D_5494426,-,A01,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_5494426.flac
+LA_0071,LA_D_4516952,-,A02,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_4516952.flac
+LA_0078,LA_D_5477639,-,A02,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_5477639.flac
+LA_0071,LA_D_7562913,-,A02,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_7562913.flac
+LA_0071,LA_D_4816070,-,A03,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_4816070.flac
+LA_0078,LA_D_5351581,-,A03,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_5351581.flac
+LA_0071,LA_D_4302814,-,A04,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_4302814.flac
+LA_0078,LA_D_5432278,-,A04,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_5432278.flac
+LA_0071,LA_D_4629056,-,A05,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_4629056.flac
+LA_0078,LA_D_5760824,-,A05,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_5760824.flac
+LA_0076,LA_D_2045409,-,A06,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_2045409.flac
+LA_0071,LA_D_4018947,-,A06,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_4018947.flac
+LA_0078,LA_D_5785094,-,A06,spoof,1,dev,/blue/eee6778/hghanani/EchoVerify/data/LA/ASVspoof2019_LA_dev/flac/LA_D_5785094.flac

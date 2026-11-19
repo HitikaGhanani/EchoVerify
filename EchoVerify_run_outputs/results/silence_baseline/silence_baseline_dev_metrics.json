@@ -1,0 +1,23 @@
+{
+  "accuracy": 0.655,
+  "precision": 0.9424,
+  "recall": 0.655902004454343,
+  "f1": 0.7734734077478661,
+  "roc_auc": 0.7664854360452422,
+  "eer": 0.3485195860081226,
+  "eer_threshold": 0.43661412596702576,
+  "operating_threshold": 0.43661412596702576,
+  "genuine_speech_fpr": 0.35294117647058826,
+  "spoof_fnr": 0.344097995545657,
+  "confusion_matrix": {
+    "tn": 66,
+    "fp": 36,
+    "fn": 309,
+    "tp": 589
+  },
+  "sample_counts": {
+    "total": 1000,
+    "bonafide": 102,
+    "spoof": 898
+  }
+}
