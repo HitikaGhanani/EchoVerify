@@ -58,11 +58,16 @@ class SpectrogramExtractor(nn.Module):
             waveform = waveform.unsqueeze(0)
 
         mel = self.mel_transform(waveform)
-        log_mel = self.amp_to_db(mel)
 
-        # Standardize dimension: (batch, 1, n_mels, time_frames)
-        if log_mel.dim() == 3:
-            log_mel = log_mel.unsqueeze(1)
+        # Add explicit channel dimension BEFORE decibel conversion so AmplitudeToDB
+        # receives [batch, 1, mel, time]. This ensures each clip's peak reference
+        # is computed independently of other clips in the batch.
+        if mel.dim() == 3:
+            mel = mel.unsqueeze(1)
+        elif mel.dim() == 2:
+            mel = mel.unsqueeze(0).unsqueeze(1)
+
+        log_mel = self.amp_to_db(mel)
 
         return log_mel
 

@@ -54,8 +54,10 @@ def compute_silence_boundaries(
 ) -> Tuple[int, int, Dict[str, float]]:
     """Compute leading, trailing, and active speech durations using energy/dB threshold.
 
-    Uses fast vectorized RMS frame energy thresholding, providing identical
-    boundary detection without JIT compilation overhead.
+    Accurately accounts for frame coverage, including partially covered final frames
+    and short audio recordings. Fully handles all-zero/silent audio, ensuring it is
+    not reported as active speech. Defines consistent, non-overlapping duration measurements:
+    lead_silence_sec + active_sec + trail_silence_sec == total_sec.
 
     Returns:
         (start_idx, end_idx, metadata_dict)
@@ -73,35 +75,72 @@ def compute_silence_boundaries(
         }
         return 0, 0, meta
 
-    # Vectorized RMS frame energy
-    num_frames = 1 + (total_samples - frame_length) // hop_length
-    if num_frames <= 0:
-        start_idx, end_idx = 0, total_samples
+    # Check for all-zero or sub-noise-floor audio
+    max_amp = float(np.max(np.abs(audio))) if total_samples > 0 else 0.0
+    if max_amp < 1e-6 or np.all(audio == 0):
+        meta = {
+            "total_sec": total_sec,
+            "lead_silence_sec": 0.0,
+            "trail_silence_sec": total_sec,
+            "edge_silence_sec": total_sec,
+            "active_sec": 0.0,
+        }
+        return 0, 0, meta
+
+    # Framing with proper coverage of short recordings and partially covered final frames
+    if total_samples < frame_length:
+        # Short clip: pad to frame_length to compute RMS energy
+        padded = np.pad(audio, (0, frame_length - total_samples), mode="constant")
+        rms = float(np.sqrt(np.mean(padded**2) + 1e-12))
+        if rms >= 1e-6:
+            start_idx = 0
+            end_idx = total_samples
+        else:
+            start_idx = 0
+            end_idx = 0
     else:
+        # Cover partially covered final frames by padding to next hop
+        remainder = (total_samples - frame_length) % hop_length
+        extra = (hop_length - remainder) % hop_length
+        padded = np.pad(audio, (0, extra), mode="constant") if extra > 0 else audio
+
+        num_frames = 1 + (len(padded) - frame_length) // hop_length
         frames = np.lib.stride_tricks.as_strided(
-            audio,
+            padded,
             shape=(num_frames, frame_length),
-            strides=(audio.strides[0] * hop_length, audio.strides[0]),
+            strides=(padded.strides[0] * hop_length, padded.strides[0]),
         )
         rms = np.sqrt(np.mean(frames**2, axis=-1) + 1e-12)
-        peak_rms = np.max(rms) + 1e-12
-        rms_db = 20 * np.log10(rms / peak_rms)
-        active_frames = np.where(rms_db >= -top_db)[0]
+        peak_rms = float(np.max(rms))
 
-        if len(active_frames) == 0:
-            start_idx, end_idx = 0, total_samples
+        if peak_rms < 1e-6:
+            start_idx, end_idx = 0, 0
         else:
-            start_idx = int(active_frames[0] * hop_length)
-            end_idx = min(total_samples, int((active_frames[-1] + 1) * hop_length))
+            rms_db = 20 * np.log10(rms / (peak_rms + 1e-12))
+            active_frames = np.where(rms_db >= -top_db)[0]
+
+            if len(active_frames) == 0:
+                start_idx, end_idx = 0, 0
+            else:
+                first_active = int(active_frames[0])
+                last_active = int(active_frames[-1])
+
+                start_idx = int(first_active * hop_length)
+                # Ending boundary accounts for full frame_length coverage
+                end_idx = min(total_samples, int(last_active * hop_length + frame_length))
+                # If the last active frame is the final frame of audio, retain all remaining samples
+                if last_active == num_frames - 1:
+                    end_idx = total_samples
 
     # Clamp indices
     start_idx = max(0, min(start_idx, total_samples))
     end_idx = max(start_idx, min(end_idx, total_samples))
 
+    # Consistent, strictly non-overlapping duration measurements
     lead_silence_sec = float(start_idx / sample_rate)
-    trail_silence_sec = float((total_samples - end_idx) / sample_rate)
     active_sec = float((end_idx - start_idx) / sample_rate)
-    edge_silence_sec = lead_silence_sec + trail_silence_sec
+    trail_silence_sec = float((total_samples - end_idx) / sample_rate)
+    edge_silence_sec = float((start_idx + total_samples - end_idx) / sample_rate)
 
     meta = {
         "total_sec": total_sec,
@@ -226,6 +265,12 @@ class AudioPreprocessor:
 
         if len(audio) == 0:
             raise ValueError("Input audio is empty (0 samples).")
+
+        if not np.all(np.isfinite(audio)):
+            raise ValueError("Unusable audio input: audio contains NaN or Inf values.")
+
+        if np.max(np.abs(audio)) < 1e-6 or np.all(audio == 0):
+            raise ValueError("Unusable audio input: audio is completely silent (all zeros).")
 
         # Resample to 16 kHz if necessary
         audio = self.resample(audio, sr)

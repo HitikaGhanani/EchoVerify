@@ -26,34 +26,55 @@ class ASVSpoofPaths:
     audio_dirs: Dict[str, Path]
 
 
+def get_repo_root() -> Path:
+    """Resolve the repository root directory containing src/, data/, results/, etc."""
+    curr = Path(__file__).resolve()
+    for parent in curr.parents:
+        if (parent / "src").is_dir() and ((parent / ".git").is_dir() or (parent / "requirements.txt").is_file()):
+            return parent.resolve()
+    return curr.parents[2].resolve()
+
+
 def resolve_dataset_root(data_root: Optional[str | Path] = None) -> Path:
     """Resolve the root directory of the ASVspoof 2019 LA dataset.
 
     Checks in order:
-    1. Explicit `data_root` argument
+    1. Explicit `data_root` argument (strictly validated; raises error if invalid)
     2. `ASVSPOOF2019_LA_ROOT` environment variable
     3. Common local repository paths: `data/LA`, `data/ASVspoof2019_LA`, `data`
 
     Raises:
         FileNotFoundError: If no valid root containing protocol directory is found.
     """
-    candidates: List[Path] = []
+    # 1. If explicitly supplied, validate directly and never silently fall back
     if data_root is not None:
-        candidates.append(Path(data_root))
+        explicit_path = Path(data_root).resolve()
+        if not explicit_path.exists():
+            raise FileNotFoundError(
+                f"Explicitly supplied dataset path does not exist: {explicit_path}\n"
+                "Please verify the provided --data-root path."
+            )
+        proto_dir = explicit_path / "ASVspoof2019_LA_cm_protocols"
+        if proto_dir.exists():
+            return explicit_path
+        if (explicit_path / "ASVspoof2019.LA.cm.train.trn.txt").exists():
+            return explicit_path.parent.resolve()
+        raise FileNotFoundError(
+            f"Explicitly supplied dataset path is invalid: {explicit_path}\n"
+            "Expected directory containing 'ASVspoof2019_LA_cm_protocols/' and audio folders."
+        )
 
+    # 2. Check environment variable and local candidate locations
+    candidates: List[Path] = []
     env_root = os.environ.get("ASVSPOOF2019_LA_ROOT")
     if env_root:
         candidates.append(Path(env_root))
 
-    # Common local workspace paths
-    repo_root = Path(__file__).resolve().parents[2]
+    repo_root = get_repo_root()
     candidates.extend([
         repo_root / "data" / "LA",
         repo_root / "data" / "ASVspoof2019_LA",
         repo_root / "data",
-        Path("data/LA"),
-        Path("data/ASVspoof2019_LA"),
-        Path("data"),
     ])
 
     # Deduplicate candidate paths while preserving order
@@ -63,18 +84,17 @@ def resolve_dataset_root(data_root: Optional[str | Path] = None) -> Path:
         res = c.resolve()
         if res not in seen:
             seen.add(res)
-            unique_candidates.append(c)
+            unique_candidates.append(res)
 
     for candidate in unique_candidates:
         if candidate.exists():
             proto_dir = candidate / "ASVspoof2019_LA_cm_protocols"
             if proto_dir.exists():
-                return candidate.resolve()
-            # Also check if candidate itself IS the protocol dir parent
+                return candidate
             if (candidate / "ASVspoof2019.LA.cm.train.trn.txt").exists():
                 return candidate.parent.resolve()
 
-    checked = "\n  - ".join(str(c.resolve()) for c in unique_candidates)
+    checked = "\n  - ".join(str(c) for c in unique_candidates)
     raise FileNotFoundError(
         "ASVspoof 2019 LA dataset root could not be located.\n"
         "Please provide --data-root or set the ASVSPOOF2019_LA_ROOT environment variable.\n"

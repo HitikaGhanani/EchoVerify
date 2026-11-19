@@ -122,14 +122,14 @@ def evaluate_model(
     metrics = compute_all_metrics(y_true, y_scores, threshold=fixed_threshold)
     chosen_threshold = metrics["operating_threshold"]
 
-    # Build per-clip scores DataFrame
+    # Build per-clip scores DataFrame with full precision
     y_pred = (y_scores >= chosen_threshold).astype(int)
     scores_df = pd.DataFrame({
         "utt_id": all_utt_ids,
         "attack_id": all_attack_ids,
         "true_label": all_true_labels,
-        "logit": [round(float(v), 5) for v in all_logits],
-        "score": [round(float(v), 5) for v in all_scores],
+        "logit": [float(v) for v in all_logits],
+        "score": [float(v) for v in all_scores],
         "pred_label": y_pred.tolist(),
     })
 
