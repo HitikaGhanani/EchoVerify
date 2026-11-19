@@ -4,7 +4,6 @@ EchoVerify is an audio deepfake screening framework and research toolkit focused
 
 The repository provides end-to-end tooling for training, evaluating, and auditing deep learning classifiers on the ASVspoof 2019 Logical Access (LA) benchmark. Beyond standard classification, EchoVerify investigates whether detectors learn robust speech artifacts or overfit to peripheral cues such as boundary silence durations, padding strategies, and background placement.
 
----
 
 ## Central Research Question: Background Placement and Silence Shortcuts
 
@@ -17,8 +16,6 @@ EchoVerify directly audits these effects:
 - A silence-only logistic regression baseline measures how much predictive power resides solely in leading and trailing silence lengths.
 - Controlled models trained on raw audio versus silence-trimmed audio are evaluated on held-out test data.
 - A paired background-placement audit tests whether shifting speech position or altering background noise characteristics flips model decisions on identical active speech segments.
-
----
 
 ## Key Experimental Results
 
@@ -50,8 +47,6 @@ Using 100 genuine and 100 synthetic Eval recordings (each with at least 3.0 seco
 
 - **Decision Flips on Identical Speech:** Shifting the speech offset within the 4-second window caused up to a **34.0% decision flip rate** on genuine speech for the raw model, with individual clip prediction scores fluctuating by as much as **0.426** out of 1.0.
 - **Noise vs. Zero Padding Discrepancy:** Substituting zero padding for recorded ambient noise caused genuine speech false positive rates to jump to 92.0% - 100.0%, indicating severe vulnerability to silence padding assumptions.
-
----
 
 ## Repository Structure
 
@@ -100,9 +95,6 @@ EchoVerify/
 ├── requirements.txt          # Python package dependencies
 └── README.md
 ```
-
----
-
 ## Implemented vs. Planned Capabilities
 
 ### Current Implementation
@@ -123,13 +115,9 @@ EchoVerify/
 - Robust training augmentations: background noise mixing, random temporal jitter, and acoustic codec perturbations to penalize placement shortcuts during training.
 - Empirical score calibration: Platt scaling or temperature scaling on validation logits prior to presentation.
 
----
-
 ## Setup and Environment
-
 ### Prerequisites
 - Python 3.9 or higher (Python 3.11 recommended)
-- Optional: NVIDIA GPU with CUDA support for accelerated training
 
 ### Local Installation
 ```bash
@@ -150,8 +138,6 @@ pip install -r requirements.txt
 ```
 
 If you plan to process MP3 files in addition to WAV and FLAC, ensure `ffmpeg` is installed and accessible on your system path.
-
----
 
 ## Execution Guide
 
@@ -260,8 +246,6 @@ streamlit run ui/app.py
 ```
 Open `http://localhost:8501` in your browser. Users can enter the checkpoint path, upload an audio recording, and view screening predictions, raw synthetic likelihood scores, silence edge analyses, and acoustic spectrograms.
 
----
-
 ## Notebooks and Reproducibility
 
 The repository includes both source and fully executed notebooks under `notebooks/`:
@@ -273,22 +257,7 @@ The repository includes both source and fully executed notebooks under `notebook
 ### Checkpoint Reproduction Notice
 Model weight files (`best_model.pt`) exceed recommended Git storage limits and are gitignored. Because training is fully deterministic, checkpoints can be reproduced exactly by running the training commands above with `--seed 42` and the manifests preserved in `results/raw/` and `results/trimmed/`.
 
----
 
-## Slurm Job Execution on UF HiPerGator
-
-A batch submission script is provided at `scripts/train_hipergator.sbatch`. To run training on a cluster:
-1. Update `#SBATCH --account` and `#SBATCH --mail-user` in `scripts/train_hipergator.sbatch`.
-2. Confirm the path to your extracted ASVspoof 2019 LA dataset root:
-   ```bash
-   export ASVSPOOF2019_LA_ROOT="/blue/<GROUP>/<USER>/data/ASVspoof2019_LA"
-   ```
-3. Submit the job:
-   ```bash
-   sbatch scripts/train_hipergator.sbatch
-   ```
-4. Check status and output logs:
-   ```bash
-   squeue -u $USER
-   cat results/logs/train_raw.txt
-   ```
+## Author Details:
+- Hitika Ghanani
+- MS in Applied Data Science student at UF
