@@ -1,0 +1,28 @@
+{
+  "settings": {
+    "data_root": "/blue/eee6778/hghanani/EchoVerify/data/LA",
+    "artifact_root": "/blue/eee6778/hghanani/EchoVerify",
+    "output_dir": "/blue/eee6778/hghanani/EchoVerify/results/placement",
+    "per_class": 100,
+    "noise_donors": 5,
+    "noise_dbfs": -50.0,
+    "trim_top_db": 30,
+    "seed": 42,
+    "device": "cuda"
+  },
+  "speech_seconds": 3,
+  "background_seconds": 1,
+  "total_seconds": 4,
+  "sample_rate": 16000,
+  "evaluation_clips": 200,
+  "evaluation_class_counts": {
+    "genuine": 100,
+    "synthetic": 100
+  },
+  "thresholds": {
+    "raw": 0.43709680438041687,
+    "trimmed": 0.34185463190078735
+  },
+  "noise_selection": "Automatically detected non-speech edges of training bona fide audio. Listen to saved donors to inspect quality.",
+  "interpretation": "Controlled input sensitivity audit. Model names identify training preprocessing. All six constructed variants are scored directly without a second trimming pass. Eligibility requires three seconds retained after edge trimming. Balanced sample results are separate from full-corpus benchmark metrics."
+}

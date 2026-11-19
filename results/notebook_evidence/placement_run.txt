@@ -1,0 +1,35 @@
+Found 5 real-background donors from training bona fide audio.
+  model background_type  leading_seconds  label  clips  mean_score  mean_signed_change  mean_absolute_change  max_absolute_change  flip_rate  error_rate          error_interpretation
+    raw  recorded_noise              0.1      0    100    0.529841            0.160916              0.162724             0.329166       0.34        0.64   genuine_false_positive_rate
+    raw  recorded_noise              0.1      1    100    0.800059            0.155054              0.155054             0.333320       0.20        0.04 synthetic_false_negative_rate
+    raw  recorded_noise              0.5      0    100    0.368925            0.000000              0.000000             0.000000       0.00        0.30   genuine_false_positive_rate
+    raw  recorded_noise              0.5      1    100    0.645005            0.000000              0.000000             0.000000       0.00        0.24 synthetic_false_negative_rate
+    raw  recorded_noise              0.9      0    100    0.318565           -0.050360              0.055196             0.250006       0.14        0.16   genuine_false_positive_rate
+    raw  recorded_noise              0.9      1    100    0.548070           -0.096934              0.097546             0.321602       0.11        0.35 synthetic_false_negative_rate
+    raw           zeros              0.1      0    100    0.792536           -0.064324              0.064342             0.291042       0.03        0.92   genuine_false_positive_rate
+    raw           zeros              0.1      1    100    0.939758           -0.017241              0.017572             0.124734       0.00        0.00 synthetic_false_negative_rate
+    raw           zeros              0.5      0    100    0.856860            0.000000              0.000000             0.000000       0.00        0.95   genuine_false_positive_rate
+    raw           zeros              0.5      1    100    0.957000            0.000000              0.000000             0.000000       0.00        0.00 synthetic_false_negative_rate
+    raw           zeros              0.9      0    100    0.897691            0.040830              0.041280             0.314893       0.05        1.00   genuine_false_positive_rate
+    raw           zeros              0.9      1    100    0.964589            0.007589              0.008637             0.065226       0.00        0.00 synthetic_false_negative_rate
+trimmed  recorded_noise              0.1      0    100    0.569160           -0.118348              0.130170             0.347261       0.12        0.86   genuine_false_positive_rate
+trimmed  recorded_noise              0.1      1    100    0.747649           -0.067084              0.075117             0.300794       0.08        0.08 synthetic_false_negative_rate
+trimmed  recorded_noise              0.5      0    100    0.687508            0.000000              0.000000             0.000000       0.00        0.98   genuine_false_positive_rate
+trimmed  recorded_noise              0.5      1    100    0.814733            0.000000              0.000000             0.000000       0.00        0.02 synthetic_false_negative_rate
+trimmed  recorded_noise              0.9      0    100    0.808868            0.121360              0.125096             0.426429       0.02        1.00   genuine_false_positive_rate
+trimmed  recorded_noise              0.9      1    100    0.885447            0.070714              0.073246             0.333269       0.02        0.00 synthetic_false_negative_rate
+trimmed           zeros              0.1      0    100    0.527050           -0.144241              0.145152             0.376330       0.19        0.79   genuine_false_positive_rate
+trimmed           zeros              0.1      1    100    0.721776           -0.076327              0.077123             0.406287       0.09        0.12 synthetic_false_negative_rate
+trimmed           zeros              0.5      0    100    0.671291            0.000000              0.000000             0.000000       0.00        0.98   genuine_false_positive_rate
+trimmed           zeros              0.5      1    100    0.798103            0.000000              0.000000             0.000000       0.00        0.03 synthetic_false_negative_rate
+trimmed           zeros              0.9      0    100    0.809039            0.137748              0.138801             0.365598       0.02        1.00   genuine_false_positive_rate
+trimmed           zeros              0.9      1    100    0.872493            0.074391              0.074763             0.352753       0.03        0.00 synthetic_false_negative_rate
+Saved 2400 scores for 200 real evaluation clips to /blue/eee6778/hghanani/EchoVerify/results/placement.
+
+Paired placement audit:   0%|          | 0/200 [00:00<?, ?it/s]
+Paired placement audit:   0%|          | 1/200 [00:00<00:34,  5.85it/s]
+Paired placement audit:  21%|██        | 42/200 [00:00<00:00, 188.49it/s]
+Paired placement audit:  42%|████▏     | 83/200 [00:00<00:00, 274.64it/s]
+Paired placement audit:  60%|██████    | 120/200 [00:00<00:00, 307.83it/s]
+Paired placement audit:  80%|████████  | 161/200 [00:00<00:00, 341.42it/s]
+Paired placement audit: 100%|██████████| 200/200 [00:00<00:00, 298.12it/s]

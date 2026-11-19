@@ -254,7 +254,7 @@ def test_regression_dataset_path_resolution():
     root = get_repo_root()
     assert (root / "src").is_dir(), f"Resolved repo root {root} is missing src/!"
     assert (root / "requirements.txt").is_file(), f"Resolved repo root {root} is missing requirements.txt!"
-    assert root.name == "EchoVerify", f"Resolved repo root {root} has unexpected name!"
+    assert root.resolve() == Path(__file__).resolve().parents[1], f"Incorrect repo root: {root}"
 
     # Explicit invalid dataset path must raise FileNotFoundError immediately
     invalid_path = Path("C:/non_existent_dataset_path_123456789")

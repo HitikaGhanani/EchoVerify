@@ -76,18 +76,17 @@ def plot_waveform_and_spectrogram(
 def main() -> None:
     st.set_page_config(
         page_title="EchoVerify: Audio Deepfake Screening",
-        page_icon="🎙️",
         layout="wide",
     )
 
-    st.title("EchoVerify 🎙️")
+    st.title("EchoVerify")
     st.markdown(
         "**Robust Deep Learning for Audio Deepfake Screening: "
         "Silence-Shortcut Audit & Practical Detection**"
     )
 
     st.caption(
-        "⚠️ **Screening Disclaimer:** EchoVerify is an experimental research and screening tool. "
+        "**Screening Disclaimer:** EchoVerify is an experimental research and screening tool. "
         "Scores are uncalibrated model outputs and do not constitute definitive forensic certification. "
         "Always corroborate results with independent source and context verification."
     )
@@ -102,7 +101,7 @@ def main() -> None:
     if predictor is None:
         st.sidebar.warning(f"No checkpoint found at `{checkpoint_input}`.")
         st.info(
-            f"ℹ️ **No trained checkpoint loaded (`{checkpoint_input}`).**\n\n"
+            f"**No trained checkpoint loaded (`{checkpoint_input}`).**\n\n"
             "To train a model checkpoint on ASVspoof 2019 LA, run:\n"
             "```bash\n"
             "python src/train.py --data-root /path/to/ASVspoof2019_LA --mode raw\n"
@@ -134,7 +133,7 @@ def main() -> None:
 
         # Safe audio playback (handles unknown MIME types robustly)
         st.audio(file_bytes)
-        st.write(f"📁 **File:** `{uploaded_file.name}` | **Size:** {len(file_bytes):,} bytes")
+        st.write(f"**File:** `{uploaded_file.name}` | **Size:** {len(file_bytes):,} bytes")
 
         if predictor is None:
             st.warning("Cannot run screening without a loaded model checkpoint. Please configure a valid checkpoint in the sidebar.")
@@ -195,18 +194,18 @@ def main() -> None:
 
         if is_synth:
             st.warning(
-                f"🚨 **Screening Note:** The model flagged synthetic acoustic cues.{genuine_fpr_text} "
+                f"**Screening Note:** The model flagged synthetic acoustic cues.{genuine_fpr_text} "
                 "Do not rely solely on this automated score; verify contextual authenticity."
             )
         else:
             st.info(
-                f"✅ **Screening Note:** The model classified this recording as genuine speech.{genuine_fpr_text} "
+                f"**Screening Note:** The model classified this recording as genuine speech.{genuine_fpr_text} "
                 "Synthetic attacks using unseen techniques or heavy compression may evade detection."
             )
 
         # Silence Analysis
         sil = result["silence_metadata"]
-        with st.expander("🔍 Silence Edge Audit & Metadata", expanded=False):
+        with st.expander("Silence Edge Audit & Metadata", expanded=False):
             scol1, scol2, scol3, scol4 = st.columns(4)
             scol1.metric("Leading Silence", f"{sil['lead_silence_sec']:.3f} s")
             scol2.metric("Trailing Silence", f"{sil['trail_silence_sec']:.3f} s")
@@ -229,7 +228,7 @@ def main() -> None:
 
         # Benchmark Metrics
         if bm:
-            with st.expander("📊 Benchmark Evidence (Dev Partition)", expanded=False):
+            with st.expander("Benchmark Evidence (Dev Partition)", expanded=False):
                 bcol1, bcol2, bcol3, bcol4 = st.columns(4)
                 bcol1.metric("Equal Error Rate (EER)", f"{bm.get('eer')}")
                 bcol2.metric("ROC-AUC", f"{bm.get('roc_auc')}")

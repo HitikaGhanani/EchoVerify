@@ -1,0 +1,29 @@
+{
+  "split": "eval",
+  "is_held_out": true,
+  "applied_fixed_threshold": 0.34185463190078735,
+  "checkpoint_epoch": 3,
+  "metrics": {
+    "accuracy": 0.6856268512149585,
+    "precision": 0.9526677577741407,
+    "recall": 0.6833849910772988,
+    "f1": 0.7958653504334272,
+    "roc_auc": 0.7583283695373848,
+    "eer": 0.30860908020611,
+    "eer_threshold": 0.3387899398803711,
+    "operating_threshold": 0.34185463190078735,
+    "genuine_speech_fpr": 0.29490142760027194,
+    "spoof_fnr": 0.3166150089227012,
+    "confusion_matrix": {
+      "tn": 5186,
+      "fp": 2169,
+      "fn": 20226,
+      "tp": 43656
+    },
+    "sample_counts": {
+      "total": 71237,
+      "bonafide": 7355,
+      "spoof": 63882
+    }
+  }
+}

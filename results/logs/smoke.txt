@@ -1,0 +1,14 @@
+[21:32:36] [INFO] EchoVerify.Train: Using device: cuda (NVIDIA L4)
+[21:32:36] [INFO] EchoVerify.Train: Resolving ASVspoof 2019 LA protocol partitions...
+[21:32:37] [INFO] EchoVerify.Train: Found official protocols: Train=25380 clips, Dev=24844 clips.
+[21:32:37] [INFO] EchoVerify.Train: --- SMOKE RUN ENABLED: Truncating to 24 train / 16 dev clips for rapid testing ---
+[21:32:37] [INFO] EchoVerify.Train: Creating deterministic stratified manifests (seed=42)...
+[21:32:37] [INFO] EchoVerify.Train: Sampled Train Cohort: 24 clips (2 bonafide, 22 spoof, ratio 11.0)
+[21:32:37] [INFO] EchoVerify.Train: Sampled Dev Cohort: 16 clips (2 bonafide, 14 spoof, ratio 7.0)
+[21:32:37] [INFO] EchoVerify.Train: Saved manifests to /blue/eee6778/hghanani/EchoVerify/results/smoke/manifest_train.csv and /blue/eee6778/hghanani/EchoVerify/results/smoke/manifest_dev.csv
+[21:32:37] [INFO] EchoVerify.Train: BCEWithLogitsLoss pos_weight for synthetic speech (label=1): 0.0909
+[21:32:40] [INFO] EchoVerify.Train: Beginning training for 1 epoch(s)...
+Training:   0%|          | 0/6 [00:00<?, ?it/s]Training:  17%|█▋        | 1/6 [00:00<00:03,  1.49it/s]                                                       Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]                                                 [21:32:41] [INFO] EchoVerify.Train: Epoch 01/01 | Train Loss: 0.1202 | Dev Loss: 0.1488 | Dev EER: 0.6429 | Dev ROC-AUC: 0.5357 | Dev Acc: 0.2500 | Dev FPR: 0.5000
+[21:32:41] [INFO] EchoVerify.Train: Saved new best checkpoint (epoch 1) to /blue/eee6778/hghanani/EchoVerify/checkpoints/smoke/best_model.pt
+[21:32:41] [INFO] EchoVerify.Train: Training and evaluation complete!
+[21:32:41] [INFO] EchoVerify.Train: Best Dev Metrics: EER=0.6428571428571428, ROC-AUC=0.5357142857142857, Operating Threshold=0.5820757746696472

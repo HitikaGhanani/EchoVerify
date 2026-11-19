@@ -1,0 +1,83 @@
+{
+  "args": {
+    "data_root": "/blue/eee6778/hghanani/EchoVerify/data/LA",
+    "mode": "raw",
+    "trim_top_db": 30.0,
+    "epochs": 3,
+    "batch_size": 32,
+    "lr": 0.001,
+    "seed": 42,
+    "max_train_samples": 2000,
+    "max_dev_samples": 1000,
+    "smoke_run": true,
+    "device": "cuda",
+    "num_workers": 0,
+    "output_dir": "/blue/eee6778/hghanani/EchoVerify/results/smoke",
+    "checkpoint_dir": "/blue/eee6778/hghanani/EchoVerify/checkpoints/smoke"
+  },
+  "preprocessing": {
+    "sample_rate": 16000,
+    "target_duration_sec": 4.0,
+    "mode": "raw",
+    "trim_top_db": 30.0,
+    "crop_mode": "first",
+    "pad_mode": "zero",
+    "n_mels": 64,
+    "n_fft": 512,
+    "hop_length": 160,
+    "target_samples": 64000
+  },
+  "train_statistics": {
+    "total_clips": 24,
+    "bonafide_count": 2,
+    "spoof_count": 22,
+    "spoof_ratio": 11.0,
+    "attack_distribution": {
+      "A01": 4,
+      "A03": 4,
+      "A04": 4,
+      "A06": 4,
+      "A02": 3,
+      "A05": 3,
+      "-": 2
+    }
+  },
+  "dev_statistics": {
+    "total_clips": 16,
+    "bonafide_count": 2,
+    "spoof_count": 14,
+    "spoof_ratio": 7.0,
+    "attack_distribution": {
+      "A02": 3,
+      "A06": 3,
+      "-": 2,
+      "A01": 2,
+      "A03": 2,
+      "A04": 2,
+      "A05": 2
+    }
+  },
+  "best_epoch_metrics": {
+    "accuracy": 0.25,
+    "precision": 0.75,
+    "recall": 0.21428571428571427,
+    "f1": 0.3333333333333333,
+    "roc_auc": 0.5357142857142857,
+    "eer": 0.6428571428571428,
+    "eer_threshold": 0.5820757746696472,
+    "operating_threshold": 0.5820757746696472,
+    "genuine_speech_fpr": 0.5,
+    "spoof_fnr": 0.7857142857142857,
+    "confusion_matrix": {
+      "tn": 1,
+      "fp": 1,
+      "fn": 11,
+      "tp": 3
+    },
+    "sample_counts": {
+      "total": 16,
+      "bonafide": 2,
+      "spoof": 14
+    }
+  }
+}
